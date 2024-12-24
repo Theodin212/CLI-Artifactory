@@ -1,7 +1,7 @@
 import requests
 
 class ArtifactoryClient:
-    def __init__(self, base_url, token):
+    def _init_(self, base_url, token):
         """
         Initializes the ArtifactoryClient with the base URL and authentication token.
 
@@ -24,17 +24,17 @@ class ArtifactoryClient:
         return input("Enter your Artifactory authentication token: ")
 
     def ping(self):
-        url = f"{base_url}/api/system/ping"
+        url = f"{self.base_url}/api/system/ping"
         response = self.session.get(url)
         return response.text
 
     def get_version(self):
-        url = f"{base_url}/api/system/version"
+        url = f"{self.base_url}/api/system/version"
         response = self.session.get(url)
         return response.json()
 
     def create_user(self, username, email):
-        url = f"{base_url}/api/security/users/{username}"
+        url = f"{self.base_url}/api/security/users/{username}"
         payload = {
             "email": email,
             "password": "defaultPassword123",
@@ -44,11 +44,11 @@ class ArtifactoryClient:
         return response.json()
 
     def delete_user(self, username):
-        url = f"{base_url}/api/security/users/{username}"
+        url = f"{self.base_url}/api/security/users/{username}"
         response = self.session.delete(url)
         return response.status_code
 
     def list_repositories(self):
-        url = f"{base_url}/api/repositories"
+        url = f"{self.base_url}/api/repositories"
         response = self.session.get(url)
         return response.json()

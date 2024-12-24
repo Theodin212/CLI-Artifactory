@@ -1,5 +1,6 @@
 import click
-from API  import API
+import requests
+from API import ArtifactoryClient
 
 @click.group()
 @click.option('--base-url', prompt=True, help="This is the URL of the Artifactory instance.")
@@ -7,8 +8,8 @@ from API  import API
 def cli(ctx, base_url):
     """Command Line Interface to manage Artifactory SaaS instance."""
     # Prompt the user for their token
-    token = API.prompt_for_token()
-    ctx.obj = API(base_url, token)
+    token = ArtifactoryClient.prompt_for_token()
+    ctx.obj = ArtifactoryClient(base_url, token)
 
 def authenticate(base_url, username, password):
     """
@@ -71,5 +72,5 @@ def list_repos(ctx):
     result = ctx.obj.list_repositories()
     click.echo(result)
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     cli()
